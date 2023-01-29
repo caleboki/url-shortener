@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UrlShortenerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/u/{any}', [UrlShortenerController::class, 'handle']);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('url/shorten', [UrlShortenerController::class, 'store']);
