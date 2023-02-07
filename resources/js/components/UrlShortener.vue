@@ -108,19 +108,20 @@ export default {
                     self.urlNotFound = false;
                 }else{
                     let currentUrl = window.location.href+'u/'+resultNewUrl;
-
-                    axios.post('/url/shorten',{
-                        url: newUrl,
-                        shortlink: currentUrl
-                    }).then(function(response){
-                        self.response = response.data;
-                        $('.copyLink').fadeIn(500);
-                        $('.copyLink').siblings('.form').find("#p1").val(self.response);
-                        //self.url = self.response;
-                        console.log(self.response);
-                    });
+                    this.callShortenerApi('/url/shorten', newUrl, currentUrl)
                 }
             }
+        },
+
+        callShortenerApi(url, newUrl, currentUrl) {
+            axios.post(url,{
+                url: newUrl,
+                shortlink: currentUrl
+            }).then(function(response){
+                self.response = response.data;
+                $('.copyLink').fadeIn(500);
+                $('.copyLink').siblings('.form').find("#p1").val(self.response);
+            });
         },
 
         copyContent() {
